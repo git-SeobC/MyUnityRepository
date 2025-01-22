@@ -1,19 +1,19 @@
-using System;
+ï»¿using System;
 using UnityEngine;
-// ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿(¸®Áöµå¹Ùµð) -> ¹°¸®Àû °è»ê½Ä ÀÌµ¿, TransformÀ¸·ÎÀÇ ÀÌµ¿ X
+// í”Œë ˆì´ì–´ì˜ ì´ë™(ë¦¬ì§€ë“œë°”ë””) -> ë¬¼ë¦¬ì  ê³„ì‚°ì‹ ì´ë™, Transformìœ¼ë¡œì˜ ì´ë™ X
 
-// ÇØ´ç ±â´ÉÀ» ÅëÇØ ÀÌ ½ºÅ©¸³Æ®¸¦ ÄÄÆ÷ÅÏÆ®·Î½á »ç¿ëÇÒ °æ¿ì
-// Àû¾î³õÀº ÄÄÆ÷³ÍÆ®¸¦ ¿ä±¸ÇÏ°Ô µË´Ï´Ù.
-// 1. ÇØ´ç ÄÄÆ÷³ÍÆ®°¡ ¾ø´Â ¿ÀºêÁ§Æ®¿¡ ¿¬°áÇÒ °æ¿ì ÀÚµ¿À¸·Î ¿¬°áÀ» ÁøÇà
-// 2. ÀÌ ½ºÅ©¸³Æ®°¡ ¿¬°áµÈ »óÅÂ¶ó¸é ±× ¿ÀºêÁ§Æ®´Â ´ë»óÀÇ ÄÄÆ÷³ÍÆ®¸¦ Á¦°ÅÇÒ ¼ö ¾øÀ½
-[RequireComponent(typeof(Rigidbody2D))] // ÇÊ¼ö ÄÄÆ÷³ÍÆ®ÀÇ °æ¿ì »èÁ¦ ¹æÁö¸¦ À§ÇÔ, ¾ø´Â ¿ÀºêÁ§Æ®¿¡ ½ºÅ©¸³Æ® Ãß°¡½Ã ÇØ´ç ÄÄÆ÷³ÍÆ® ÀÚµ¿À¸·Î Ãß°¡
+// í•´ë‹¹ ê¸°ëŠ¥ì„ í†µí•´ ì´ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì»´í¬í„´íŠ¸ë¡œì¨ ì‚¬ìš©í•  ê²½ìš°
+// ì ì–´ë†“ì€ ì»´í¬ë„ŒíŠ¸ë¥¼ ìš”êµ¬í•˜ê²Œ ë©ë‹ˆë‹¤.
+// 1. í•´ë‹¹ ì»´í¬ë„ŒíŠ¸ê°€ ì—†ëŠ” ì˜¤ë¸Œì íŠ¸ì— ì—°ê²°í•  ê²½ìš° ìžë™ìœ¼ë¡œ ì—°ê²°ì„ ì§„í–‰
+// 2. ì´ ìŠ¤í¬ë¦½íŠ¸ê°€ ì—°ê²°ëœ ìƒíƒœë¼ë©´ ê·¸ ì˜¤ë¸Œì íŠ¸ëŠ” ëŒ€ìƒì˜ ì»´í¬ë„ŒíŠ¸ë¥¼ ì œê±°í•  ìˆ˜ ì—†ìŒ
+[RequireComponent(typeof(Rigidbody2D))] // í•„ìˆ˜ ì»´í¬ë„ŒíŠ¸ì˜ ê²½ìš° ì‚­ì œ ë°©ì§€ë¥¼ ìœ„í•¨, ì—†ëŠ” ì˜¤ë¸Œì íŠ¸ì— ìŠ¤í¬ë¦½íŠ¸ ì¶”ê°€ì‹œ í•´ë‹¹ ì»´í¬ë„ŒíŠ¸ ìžë™ìœ¼ë¡œ ì¶”ê°€
 public class PlayerMovement : MonoBehaviour
 {
     //public int a = 10;
-    public float speed = 10.0f; // ¼Ò¼öÁ¡À» ÀûÀ» ¶§´Â ¸¶Áö¸·¿¡ 'f'¸¦ »ç¿ë
-    // ¼Ò¼öÁ¡ ¾à 6ÀÚ¸®±îÁö Á¤È®ÇÏ°Ô °è»ê
-    public double jump_force = 3.5; // doubleµµ ½Ç¼ö¸¦ Ç¥ÇöÇÏ´Â ÀÚ·áÇü, 'f'¸¦ ºÙÀÌÁö ¾ÊÀ½
-    // ¼Ò¼öÁ¡ ¾à 15ÀÚ¸®±îÁö Á¤È®ÇÏ°Ô °è»ê
+    public float speed = 2.0f; // ì†Œìˆ˜ì ì„ ì ì„ ë•ŒëŠ” ë§ˆì§€ë§‰ì— 'f'ë¥¼ ì‚¬ìš©
+    // ì†Œìˆ˜ì  ì•½ 6ìžë¦¬ê¹Œì§€ ì •í™•í•˜ê²Œ ê³„ì‚°
+    public double jump_force = 3.5; // doubleë„ ì‹¤ìˆ˜ë¥¼ í‘œí˜„í•˜ëŠ” ìžë£Œí˜•, 'f'ë¥¼ ë¶™ì´ì§€ ì•ŠìŒ
+    // ì†Œìˆ˜ì  ì•½ 15ìžë¦¬ê¹Œì§€ ì •í™•í•˜ê²Œ ê³„ì‚°
 
     public bool isjump = false;
 
@@ -23,9 +23,9 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        // GetComponent<T> => ÇØ´ç ÄÄÆ÷³ÍÆ®°¡ °ªÀ» ¾ò¾î¿À´Â ±â´É
-        // T ºÎºÐ¿¡´Â ÄÄÆ÷³ÍÆ®ÀÇ ÇüÅÂ¸¦ ÀÛ¼ºÇØÁÝ´Ï´Ù. ÄÄÆ÷³ÍÆ®ÀÇ ÇüÅÂ°¡ ´Ù¸£´Ù¸é ¿À·ù ¹ß»ý
-        // ÇØ´ç µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì¶ó¸é nullÀ» ¹ÝÈ¯ÇÏ°Ô µË´Ï´Ù.
+        // GetComponent<T> => í•´ë‹¹ ì»´í¬ë„ŒíŠ¸ê°€ ê°’ì„ ì–»ì–´ì˜¤ëŠ” ê¸°ëŠ¥
+        // T ë¶€ë¶„ì—ëŠ” ì»´í¬ë„ŒíŠ¸ì˜ í˜•íƒœë¥¼ ìž‘ì„±í•´ì¤ë‹ˆë‹¤. ì»´í¬ë„ŒíŠ¸ì˜ í˜•íƒœê°€ ë‹¤ë¥´ë‹¤ë©´ ì˜¤ë¥˜ ë°œìƒ
+        // í•´ë‹¹ ë°ì´í„°ê°€ ì¡´ìž¬í•˜ì§€ ì•Šì„ ê²½ìš°ë¼ë©´ nullì„ ë°˜í™˜í•˜ê²Œ ë©ë‹ˆë‹¤.
     }
 
     // Update is called once per frame
@@ -39,15 +39,15 @@ public class PlayerMovement : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-        // GetAxisRaw("Å° ¸í"); Àº ÀÎÇ² ¸Å´ÏÀúÀÇ Å°¸¦ ¾ò¾î¿À¸é¼­
-        // Å¬¸¯¿¡ µû¶ó -1, 0 , 1ÀÇ ¼öÄ¡·Î °ªÀ» ¾ò¾î¿É´Ï´Ù.
+        // GetAxisRaw("í‚¤ ëª…"); ì€ ì¸í’‹ ë§¤ë‹ˆì €ì˜ í‚¤ë¥¼ ì–»ì–´ì˜¤ë©´ì„œ
+        // í´ë¦­ì— ë”°ë¼ -1, 0 , 1ì˜ ìˆ˜ì¹˜ë¡œ ê°’ì„ ì–»ì–´ì˜µë‹ˆë‹¤.
 
-        // Horizontal : ¼öÆò ÀÌµ¿ a, d Å°³ª Å°º¸µåÀÇ ¿ÞÂÊ, ¿À¸¥ÂÊ Å°
-        // Vertical : ¼öÁ÷ ÀÌµ¿ w, s Å°³ª Å°º¸µåÀÇ À§, ¾Æ·¡ Å°
+        // Horizontal : ìˆ˜í‰ ì´ë™ a, d í‚¤ë‚˜ í‚¤ë³´ë“œì˜ ì™¼ìª½, ì˜¤ë¥¸ìª½ í‚¤
+        // Vertical : ìˆ˜ì§ ì´ë™ w, s í‚¤ë‚˜ í‚¤ë³´ë“œì˜ ìœ„, ì•„ëž˜ í‚¤
 
-        // À§ÀÇ ÄÚµå¸¦ ÅëÇØ ¿òÁ÷ÀÏ ¹æÇâÀ» °è»êÇÕ´Ï´Ù.
+        // ìœ„ì˜ ì½”ë“œë¥¼ í†µí•´ ì›€ì§ì¼ ë°©í–¥ì„ ê³„ì‚°í•©ë‹ˆë‹¤.
         Vector3 velocity = new Vector3(x, y, 0) * speed * Time.deltaTime;
-        // ¼Ó·Â = ¹æÇâ * ¼Óµµ
+        // ì†ë ¥ = ë°©í–¥ * ì†ë„
 
         transform.position += velocity;
 
@@ -55,36 +55,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        // »ç¿ëÀÚ°¡ Å°º¸µå Space Å°¸¦ ÀÔ·ÂÇÑ´Ù¸é
+        // ì‚¬ìš©ìžê°€ í‚¤ë³´ë“œ Space í‚¤ë¥¼ ìž…ë ¥í•œë‹¤ë©´
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!isjump) // Á¡ÇÁ »óÅÂ°¡ ¾Æ´Ñ °æ¿ì
+            if (!isjump) // ì í”„ ìƒíƒœê°€ ì•„ë‹Œ ê²½ìš°
             {
-                isjump = true; // Á¡ÇÁ »óÅÂ·Î º¯°æ
-                rigid.AddForce(Vector3.up * (float)jump_force, ForceMode2D.Impulse); // À¯´ÏÆ¼ ÄÚµå ´ëºÎºÐ floatÀÌ±â ¶§¹®¿¡ doubleÀº Àß ¾È¾¸
+                isjump = true; // ì í”„ ìƒíƒœë¡œ ë³€ê²½
+                rigid.AddForce(Vector3.up * (float)jump_force, ForceMode2D.Impulse); // ìœ ë‹ˆí‹° ì½”ë“œ ëŒ€ë¶€ë¶„ floatì´ê¸° ë•Œë¬¸ì— doubleì€ ìž˜ ì•ˆì”€
                 // type casting
-                // "(Å¸ÀÔ ÀÌ¸§)º¯¼ö" ¸¦ ÅëÇØ ÇØ´ç º¯¼ö¸¦ ¼³Á¤ÇÑ Å¸ÀÔÀ¸·Î º¯°æÇÒ ¼ö ÀÖ½À´Ï´Ù.
-                // ´Ü Ä³½ºÆÃÀÌ °¡´ÉÇÑ ¹üÀ§¿¡¼­¸¸ ÁøÇàÇÒ ¼ö ÀÖ½À´Ï´Ù.
+                // "(íƒ€ìž… ì´ë¦„)ë³€ìˆ˜" ë¥¼ í†µí•´ í•´ë‹¹ ë³€ìˆ˜ë¥¼ ì„¤ì •í•œ íƒ€ìž…ìœ¼ë¡œ ë³€ê²½í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+                // ë‹¨ ìºìŠ¤íŒ…ì´ ê°€ëŠ¥í•œ ë²”ìœ„ì—ì„œë§Œ ì§„í–‰í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Ãæµ¹Ã¼ÀÇ °ÔÀÓ ¿ÀºêÁ§Æ®ÀÇ ·¹ÀÌ¾î°¡ 7°ú ºñ±³ÇßÀ» ¶§ Å©±â°¡ °°´Ù¸é
+        // ì¶©ëŒì²´ì˜ ê²Œìž„ ì˜¤ë¸Œì íŠ¸ì˜ ë ˆì´ì–´ê°€ 7ê³¼ ë¹„êµí–ˆì„ ë•Œ í¬ê¸°ê°€ ê°™ë‹¤ë©´
         //if (collision.gameObject.layer == 7)
         if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
         {
             isjump = false;
         }
-        Debug.Log("¶¥À» ¹â¾Ò½À´Ï´Ù!");
+        Debug.Log("ë•…ì„ ë°Ÿì•˜ìŠµë‹ˆë‹¤!");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Finish")
         {
-            Debug.Log("°ñÀÎ!!");
+            Debug.Log("ê³¨ì¸!!");
         }
     }
 }
