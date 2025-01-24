@@ -4,10 +4,11 @@
     {
         static void Main(string[] args)
         {
-            int number; // camelcase
-            number = 2;
+            char floor = ' ';
+            char wall = '*';
+            bool condition = true;
 
-            Console.WriteLine(sizeof(number));
+            condition = 1 < 2;
         }
     }
 }
