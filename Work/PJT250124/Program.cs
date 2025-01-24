@@ -2,13 +2,140 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public class Something
         {
-            char floor = ' ';
-            char wall = '*';
-            bool condition = true;
+            public void Project1()
+            {
+                string? readLineString = Console.ReadLine();
+                int number = 0;
+                while (readLineString == null || !int.TryParse(readLineString, out number))
+                {
+                    Console.WriteLine("숫자를 입력해주세요.");
+                    readLineString = Console.ReadLine();
+                }
 
-            condition = 1 < 2;
+                if (number != 0 && number % 4 == 0)
+                {
+                    Console.WriteLine($"{number} 은/는 4의 배수입니다.");
+                }
+                else
+                {
+                    Console.WriteLine($"{number} 은/는 4의 배수가 아닙니다.");
+                }
+            }
+
+            public void Project2()
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+            }
+
+            public void Project3()
+            {
+                int odd = 0;
+                int even = 0;
+                int total = 0;
+
+                for (int i = 0; i <= 100; i += 2)
+                {
+                    even += i;
+                    //total += i;
+
+                    //if (i % 2 == 0)
+                    //{
+                    //    even += i;
+                    //}
+                    //else
+                    //{
+                    //    odd += i;
+                    //}
+                }
+
+                Console.WriteLine(odd);
+                Console.WriteLine(even);
+                Console.WriteLine(total);
+            }
+
+            public void Project4()
+            {
+                char wall = '*';
+                char floor = ' ';
+                int[,] map =
+                    {
+                        { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                        { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+                    };
+                int playerX = 1;
+                int playerY = 1;
+
+                bool playing = true;
+
+                while (playing)
+                {
+                    Console.Clear();
+                    for (int y = 0; y < 10; y++)
+                    {
+                        for (int x = 0; x < 10; x++)
+                        {
+                            if (x == playerX && y == playerY)
+                            {
+                                Console.Write('P');
+                            }
+                            else if (map[x, y] == 1)
+                            {
+                                Console.Write(wall);
+                            }
+                            else if (map[x, y] == 0)
+                            {
+                                Console.Write(floor);
+                            }
+                        }
+                        Console.WriteLine();
+                    }
+                    ConsoleKeyInfo keyInfo = Console.ReadKey();
+                    if (keyInfo.Key == ConsoleKey.W)
+                    {
+                        playerY--;
+                    }
+                    else if (keyInfo.Key == ConsoleKey.S)
+                    {
+                        playerY++;
+                    }
+                    else if (keyInfo.Key == ConsoleKey.D)
+                    {
+                        playerX++;
+                    }
+                    else if (keyInfo.Key == ConsoleKey.A)
+                    {
+                        playerX--;
+                    }
+                    else if (keyInfo.Key == ConsoleKey.Escape)
+                    {
+                        playing = false;
+                    }
+                }
+            }
+
+            static void Main(string[] args)
+            {
+                Something something = new Something();
+
+                //something.Project1();
+                //something.Project2();
+                //something.Project3();
+                something.Project4();
+            }
         }
     }
 }
