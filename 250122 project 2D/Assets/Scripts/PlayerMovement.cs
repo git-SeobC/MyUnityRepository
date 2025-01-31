@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rigid;
 
+    private GameObject player;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         // GetComponent<T> => 해당 컴포넌트가 값을 얻어오는 기능
         // T 부분에는 컴포넌트의 형태를 작성해줍니다. 컴포넌트의 형태가 다르다면 오류 발생
         // 해당 데이터가 존재하지 않을 경우라면 null을 반환하게 됩니다.
+        player = this.gameObject;
     }
 
     // Update is called once per frame
@@ -33,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Jump();
+
     }
 
     private void Move()
@@ -85,6 +89,12 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Finish")
         {
             Debug.Log("골인!!");
+        }
+
+        if (LayerMask.LayerToName(collision.gameObject.layer) == "Water")
+        {
+            Destroy(player, 0);
+            Debug.Log("Game Over");
         }
     }
 }
